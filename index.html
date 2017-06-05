@@ -103,6 +103,8 @@
   fbinfo[3] = response.email;
 
      var im = document.getElementById("profileImage").setAttribute("src", "http://graph.facebook.com/" + response.id + "/picture?type=large");
+     document.getElementById('userInfo').innerHTML =
+        '<h3>User ID: ' + response.id + '<br>'+'User Email: ' +response.email+'</h3>';
   });
   }
 </script>
@@ -135,6 +137,8 @@
 <!-- Testing Image -->
 <div class = "text-center">
 <img id = "profileImage" src = "img/placeholder.png">
+</div>
+<div id="userInfo" class = "text-center">
 </div>
 
 
