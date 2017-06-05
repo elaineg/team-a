@@ -31,8 +31,9 @@
     } 
     else {
       // The person is not logged into your app or we are unable to tell.
-      document.getElementById('status').innerHTML = 'Please log ' +
-        'in to use Rideshare.';
+      document.getElementById('status').innerHTML = '<h3>Please log ' +
+        'in to use Rideshare.</h3>';
+        document.getElementById("profileImage").setAttribute("src", "img/placeholder.png");
     }
   }
 
@@ -88,8 +89,21 @@
     FB.api('/me', function(response) {
       console.log('Successful login for: ' + response.name);
       document.getElementById('status').innerHTML =
-        'Hi ' + response.name + '!';
+        '<h3>Hi ' + response.name + '!</h3>';
+        getFBData();
     });
+  }
+
+  function getFBData () {
+  FB.api('/me', function(response) {
+  fbinfo = new Array();
+  fbinfo[0] = response.id;
+  fbinfo[1] = response.first_name;
+  fbinfo[2] = response.last_name;
+  fbinfo[3] = response.email;
+
+     var im = document.getElementById("profileImage").setAttribute("src", "http://graph.facebook.com/" + response.id + "/picture?type=large");
+  });
   }
 </script>
 
@@ -117,6 +131,10 @@
 
 <div id="status">
 </div>
+</div>
+<!-- Testing Image -->
+<div class = "text-center">
+<img id = "profileImage" src = "img/placeholder.png">
 </div>
 
 
