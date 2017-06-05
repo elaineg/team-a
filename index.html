@@ -34,6 +34,7 @@
       document.getElementById('status').innerHTML = '<h3>Please log ' +
         'in to use Rideshare.</h3>';
         document.getElementById("profileImage").setAttribute("src", "img/placeholder.png");
+        document.getElementById('userInfo').innerHTML = '';
     }
   }
 
@@ -86,7 +87,7 @@
   // successful.  See statusChangeCallback() for when this call is made.
   function testAPI() {
     console.log('Welcome!  Fetching your information.... ');
-    FB.api('/me', function(response) {
+    FB.api('/me',{fields: 'name,email'}, function(response) {
       console.log('Successful login for: ' + response.name);
       document.getElementById('status').innerHTML =
         '<h3>Hi ' + response.name + '!</h3>';
@@ -95,7 +96,7 @@
   }
 
   function getFBData () {
-  FB.api('/me', function(response) {
+  FB.api('/me',{fields: 'name,email'}, function(response) {
   fbinfo = new Array();
   fbinfo[0] = response.id;
   fbinfo[1] = response.first_name;
@@ -104,7 +105,7 @@
 
      var im = document.getElementById("profileImage").setAttribute("src", "http://graph.facebook.com/" + response.id + "/picture?type=large");
      document.getElementById('userInfo').innerHTML =
-        '<h3>User ID: ' + response.id + '<br>'+'User Email: ' +response.email+'</h3>';
+        '<h4>User ID: ' + response.id + '<br>'+'User Email: ' +response.email+'</h4>';
   });
   }
 </script>
