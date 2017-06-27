@@ -13,6 +13,9 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <!--Custom CSS link -->
 <link href = "resources/css/custom.css" rel = "stylesheet">
+<link rel="icon" 
+      type="image/png" 
+      href="img/logo_green.png">
 </head>
 <body>
 <!--FACEBOOK JAVASCRIPT SDK -->
@@ -26,15 +29,16 @@
     // Full docs on the response object can be found in the documentation
     // for FB.getLoginStatus().
     if (response.status === 'connected') {
+      window.top.location = "http://qshare.ca/profile.html";
       // Logged into your app and Facebook.
-      testAPI();
+      //testAPI();
     } 
     else {
       // The person is not logged into your app or we are unable to tell.
-      document.getElementById('status').innerHTML = '<h3>Please log ' +
+      /*document.getElementById('status').innerHTML = '<h3>Please log ' +
         'in to use Rideshare.</h3>';
         document.getElementById("profileImage").setAttribute("src", "img/placeholder.png");
-        document.getElementById('userInfo').innerHTML = '';
+        document.getElementById('userInfo').innerHTML = '';*/
     }
   }
 
@@ -82,66 +86,47 @@
     js.src = "//connect.facebook.net/en_US/sdk.js";
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
-
-  // Here we run a very simple test of the Graph API after login is
-  // successful.  See statusChangeCallback() for when this call is made.
-  function testAPI() {
-    console.log('Welcome!  Fetching your information.... ');
-    FB.api('/me',{fields: 'name,email'}, function(response) {
-      console.log('Successful login for: ' + response.name);
-      document.getElementById('status').innerHTML =
-        '<h3>Hi ' + response.name + '!</h3>';
-        getFBData();
-    });
-  }
-
-  function getFBData () {
-  FB.api('/me',{fields: 'name,email'}, function(response) {
-  fbinfo = new Array();
-  fbinfo[0] = response.id;
-  fbinfo[1] = response.first_name;
-  fbinfo[2] = response.last_name;
-  fbinfo[3] = response.email;
-
-     var im = document.getElementById("profileImage").setAttribute("src", "http://graph.facebook.com/" + response.id + "/picture?type=large");
-     document.getElementById('userInfo').innerHTML =
-        '<h4>User ID: ' + response.id + '<br>'+'User Email: ' +response.email+'</h4>';
-  });
-  }
+  
 </script>
 
 <!--END FACEBOOK JAVASCRIPT SDK -->
-<section>
+
 <div class = "jumbotron">
 	<div class = "container-fluid">
-		<div class = "row">
-			<div class = "col-sm-12 text-center">
-				<h1>Queen's Rideshare</h1>
-			</div>
-		</div>
+		
+  			<div class = "title-container">
+          <img src = "img/queens_logo.png">
+  				<h1>Queen's Rideshare</h1>
+        </div>
+          
+  			
+	
+        <div class = "tag-container text-center">
+            <p>Safe. Reliable. Eco-Friendly.</p>
+        </div>
 	</div>
 </div>
-</section>
+
 <!--
   Below we include the Login Button social plugin. This button uses
   the JavaScript SDK to present a graphical Login button that triggers
   the FB.login() function when clicked.
 -->
+<section id = "main">
 <div class = "text-center">
-<div class="fb-login-button" data-width="200" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true" onlogin="checkLoginState();"></div>
+<div class="fb-login-button" data-width="200" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true" onlogin="checkLoginState();" scope="public_profile,email"></div>
 <!-- <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
 </fb:login-button>  -->
 
 <div id="status">
 </div>
 </div>
-<!-- Testing Image -->
-<div class = "text-center">
-<img id = "profileImage" src = "img/placeholder.png">
-</div>
-<div id="userInfo" class = "text-center">
-</div>
 
+<!--Rideshare Logo
+<div class = "text-center">
+<img src = "img/logo_green.png" style = "border-radius: 50%; width: 200px; height:200px;">
+</div>-->
+</section>
 
 <!-- jQuery -->
 <script src="resources/js/jquery.min.js"></script>
