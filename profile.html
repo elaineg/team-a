@@ -16,6 +16,8 @@
 <link rel="icon" 
       type="image/png" 
       href="img/logo_green.png">
+<!--Google Fonts-->
+<link href="https://fonts.googleapis.com/css?family=Open+Sans|Orbitron|Slabo+27px" rel="stylesheet">
 <style>
 body{
 	background-image: none;
@@ -117,40 +119,114 @@ body{
 </script>
 
 <!--END FACEBOOK JAVASCRIPT SDK -->
-<div class = "jumbotron">
+<div class = "jumbotron" id = "jumbo">
 	<div class = "container-fluid">
 		
   			<div class = "title-container">
           <img src = "img/queens_logo.png">
   				<h1>Queen's Rideshare</h1>
         </div>
-          
-  			
-	
+
         <div class = "tag-container text-center">
             <p>Safe. Reliable. Eco-Friendly.</p>
         </div>
 	</div>
 </div>
+
+<!-- Nav Bar for ride postings and listings -->
+
+  <div class = "nav-wrapper" style = "height:50px; z-index: 10000;" >
+    <div id = "nav_bar" class = "navbar-custom">
+      <div class = "container-fluid">
+        <nav class = "row navbar navbar-default">
+            <div class = "navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+            <a class = "navbar-brand XX" href = "#jumbo"><i>Qshare</i></a>
+            </div>
+          
+             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style = "z-index: 100000;">
+              <ul class = "nav navbar-nav navbar-right" id = "linkList">
+                <li ><a href="#profile" class = "XX">Profile</a></li>
+                <li><a href="#post" class ="XX">Post Ride</a></li>
+                <li><a href="#request" class ="XX">Request Ride</a></li>
+                <li><a href="#rides" class = "XX">All Rides</a></li>
+                <li><a href="#contact" class = "XX">Contact Us</a></li>
+              </ul>
+             </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+
+<!-- End Nav Bar-->
+
 <!--
   Below we include the Login Button social plugin. This button uses
   the JavaScript SDK to present a graphical Login button that triggers
   the FB.login() function when clicked.
 -->
-<div class = "text-center">
-<div class="fb-login-button" data-width="200" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true" onlogin="checkLoginState();"></div>
-<!-- <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-</fb:login-button>  -->
+<section id = "profile">
+  <div class = "text-center">
+    <div class="fb-login-button" data-width="200" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true" onlogin="checkLoginState();"></div>
+    <!-- <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+    </fb:login-button>  -->
 
-<div id="status">
-</div>
-</div>
-<!-- Testing Image -->
-<div class = "text-center">
-<img id = "profileImage" src = "img/placeholder.png">
-</div>
-<div id="userInfo" class = "text-center">
-</div>
+    <div id="status">
+    </div>
+  </div>
+  <!-- Testing Image -->
+  <div class = "text-center">
+    <img id = "profileImage" src = "img/placeholder.png">
+  </div>
+  <div id="userInfo" class = "text-center">
+  </div>
+</section>
+
+<section id = "post">
+     <h2 style = "padding-top: 20px;" class = "text-center">Post a Ride!</h2>
+     <div class = "desc">
+     <h4 class = "text-center" style = "line-height: 60px;"> In Development - Coming Soon!</h4>
+     </div>
+</section>
+
+<section id = "request">
+     <h2 style = "padding-top: 20px;" class = "text-center">Request a Ride!</h2>
+     <div class = "desc">
+     <h4  style = "line-height: 60px;" class = "text-center"> In Development - Coming Soon!</h4>
+     </div>
+</section>
+
+<section id = "rides">
+     <h2 style = "padding-top: 20px;" class = "text-center">Ride Listings!</h2>
+     <div class = "desc">
+     <h4 style = "line-height: 60px;" class = "text-center"> In Development - Coming Soon!</h4>
+     </div>
+</section>
+
+<!--Footer / Contact Us!-->
+<div class = "container-fluid" id="contact">
+    
+      <div class = "row">
+        <div class = "col-sm-12">
+          <h3 class = "text-center">Contact Us</h3>
+          <hr style = "width: 50%; border-color: black; border-width: 2px;"></hr>
+          <ul style = "list-style: none; padding-left: 0px; text-align: center;">
+            <li><b>Cory Crowley</b> - Senior Developer: <a href="mailto:cormac.crowley@queensu.ca"  style = "color:blue;"><u>cormac.crowley@queensu.ca</u> <i style = "color:black;" class="fa fa-envelope-o fa-fw"></i></a> </li>
+            <li><b>Evgeny Bogdanov</b> - Junior Developer: <a href="mailto:15eb30@queensu.ca"  style = "color:blue;"><u>15eb30@queensu.ca</u> <i style = "color:black;" class="fa fa-envelope-o fa-fw"></i></a> </li>
+            <li><b>Elaine Gao</b> - Product Manager: <a href="mailto:16eg1@queensu.ca"  style = "color:blue;"><u>16eg1@queensu.ca</u> <i style = "color:black;" class="fa fa-envelope-o fa-fw"></i></a> </li>
+          </ul>
+        </div>      
+      </div>
+    
+</div> 
+
+
 
 
 <!-- jQuery -->
