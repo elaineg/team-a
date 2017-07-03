@@ -1,2 +1,7 @@
-# team-a
-Project tasks and code for team a
+# Qshare - Queen's University Rideshare
+Project tasks and code for QTMA Qshare developers
+
+## Team Members
+Cory Crowley,
+Elaine Gao,
+Evgeny Bogdanov
