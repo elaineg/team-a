@@ -190,12 +190,67 @@ body{
 
 <section id = "post">
      <h2 style = "padding-top: 20px;" class = "text-center">Post a Ride!</h2>
-     <div class = "desc">
-     <h4 class = "text-center" style = "line-height: 60px;"> In Development - Coming Soon!</h4>
+     <div class = "container-fluid">
+     <div class = "row">
+     <!-- Post Form -->
+    <form action="rideadded.php" method="post">
+    <div class = "col-xs-12 col-sm-6">
+      <div class="form-group">
+      <label for="ridecapacity">Seats Available</label>
+        <select class="form-control" id="ridecapacity" name = "ridecapacity">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+          <option>6</option>
+          <option>7</option>
+          <option>8</option>
+        </select>
+      </div>
+    </div>
+    <div class = "col-xs-12 col-sm-6">
+      <div class="form-group">
+         <label for="ridedestination">Destination</label>
+         <input type="text" class="form-control" name = "ridedestination" id="ridedestination" placeholder="Where are you heading?">
+      </div>
+    </div>
+    <div class = "col-xs-12 col-sm-6">
+      <div class="form-group">
+        <label for="rideprice" class="col-2 col-form-label">Price</label>
+        <div class="col-10">
+          <input class="form-control" type="number" name = "rideprice"  id="rideprice" placeholder="How much are you charging?">
+        </div>
+      </div>
+    </div>
+    <div class = "col-xs-12 col-sm-6">
+      <div class="form-group">
+         <label for="origin">Origin</label>
+         <input type="text" class="form-control" name = "origin" id="origin" placeholder="Where are you leaving from?">
+      </div>
+    </div>
+
+    </div><!--End Row-->
+    
+
+
+     <!-- <tr>
+      <td>Destination</td>
+      <td align="center"><input type="text" name="ridedestination" size="30" /></td>
+    </tr>
+    <tr>
+      <td>Price</td>
+      <td align="center"><input type="text" name="rideprice" size="30" /></td>
+    </tr>
+    <tr>
+      <td>How many people can you fit?</td>
+      <td align="center"><input type="text" name="ridecapacity" size="30" /></td>
+    </tr> -->
+     <div class = "row">
+     <button type="button submit" name = "submit" class="btn btn-primary" style = "display: block; position:relative; margin: auto; left:0; right:0; margin-top: 20px;">Post Ride</button>
      </div>
-     <form action="rideadd.php">
-     <button type="button submit" class="btn btn-primary" style = "display: block; position:relative; margin: auto; left:0; right:0; margin-top: 70px;">Alpha Post</button>
      </form>
+     </div><!--End Container Fluid-->
 </section>
 
 <section id = "request">
