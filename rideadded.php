@@ -1,4 +1,3 @@
-# page displayed after submit button ispressed on rideadd page
 <html>
 <head>
   <title>Add Ride</title>
@@ -30,9 +29,10 @@
       }
 
       if(empty($data_missing)){
+        echo 'no data missing';
         require_once('mysqli_connect.php');
 
-        $query = "INSERT INTO current_rides(destination, price, capacity, ride_id_number) VALUES(?,?,?,NULL)";
+        $query = "INSERT INTO rides(destination, price, capacity) VALUES(?,?,?)";
         $stmt = mysqli_prepare($dbc,$query);
 
         mysqli_stmt_bind_param($stmt, "sid", $dest, $price, $cap);
@@ -42,7 +42,7 @@
         $affected_rows = mysqli_stmt_affected_rows($stmt);
 
         if($affected_rows == 1){
-          echo 'ride entred';
+          echo 'ride entered';
 
           mysqli_stmt_close($stmt);
           mysqli_close($dbc);

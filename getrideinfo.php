@@ -2,7 +2,7 @@
 <body>
 <?php
   require_once('mysqli_connect.php');
-  die('inside getrideinfo.php');
+
   $query = "SELECT rideid, destination, price, capacity, userid, origin, departDate, vehicle FROM rides";
 
   $response = @mysqli_query($dbc, $query);
