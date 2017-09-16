@@ -114,6 +114,7 @@ body{
      var im = document.getElementById("profileImage").setAttribute("src", "http://graph.facebook.com/" + response.id + "/picture?type=large");
      document.getElementById('userInfo').innerHTML =
         '<h4>User ID: ' + response.id + '<br>'+'User Email: ' +response.email+'</h4>';
+     document.getElementById("userid").value = response.id;   
   });
   }
 </script>
@@ -229,6 +230,7 @@ body{
          <input type="text" class="form-control" name = "origin" id="origin" placeholder="Where are you leaving from?">
       </div>
     </div>
+    <input type="hidden" id = "userid" name = "userid"/>
 
     </div><!--End Row-->
     
@@ -247,7 +249,7 @@ body{
       <td align="center"><input type="text" name="ridecapacity" size="30" /></td>
     </tr> -->
      <div class = "row">
-     <button type="button submit" name = "submit" class="btn btn-primary" style = "display: block; position:relative; margin: auto; left:0; right:0; margin-top: 20px;">Post Ride</button>
+     <button type="button submit" name = "submit" class="btn btn-primary" style = "display: block; position:relative; margin: auto; left:0; right:0; margin-top: 20px; margin-bottom: 20px;">Post Ride</button>
      </div>
      </form>
      </div><!--End Container Fluid-->
