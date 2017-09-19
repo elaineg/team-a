@@ -80,7 +80,7 @@
 <script>
   setTimeout(redirectProfile, 2000);
   function redirectProfile() {
-  window.top.location = "http://qshare.ca/profile.html#post";
+  window.top.location = "http://test.qshare.ca/profile.html#post";
   }
 </script>
 </body>

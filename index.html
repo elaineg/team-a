@@ -32,7 +32,7 @@
     // Full docs on the response object can be found in the documentation
     // for FB.getLoginStatus().
     if (response.status === 'connected') {
-      window.top.location = "http://qshare.ca/profile.html";
+      window.top.location = "http://test.qshare.ca/profile.html";
       // Logged into your app and Facebook.
       //testAPI();
     } 
@@ -93,8 +93,8 @@
 </script>
 
 <!--END FACEBOOK JAVASCRIPT SDK -->
-
-<div class = "jumbotron">
+<div class = "jumbo-wrapper" style = "height: 272px;">
+<div class = "jumbotron" style = "position: fixed; z-index: 2; width: 100%;">
 	<div class = "container-fluid">
 		
   			<div class = "title-container">
@@ -108,6 +108,7 @@
             <p>Safe. Reliable. Eco-Friendly.</p>
         </div>
 	</div>
+</div>
 </div>
 
 <!--
@@ -124,6 +125,32 @@
 <div id="status">
 </div>
 </div>
+<div class = "container-fluid">
+<div class="row">
+                <div class="text-center col-md-4 mx-auto" style = "padding:0 0 0 0; padding-top: 10px;">
+                  <img class="abouticons" src="img/002-stopwatch.png">
+                  <div class = "shout-wrap" style = "background-color: rgba(25, 25, 25, .5); width: 100%; height: 200px; padding-left: 25px; padding-right: 25px;">
+                   <h2 style="padding-top: 1em; color:white;">Faster</h2>
+                   
+                    <p style = "color:white; font-size: 20px;">Filter rides by date and location. Riders don't have to sift through ride offers, and drivers can ensure that their posts don't get lost in cyberspace.</p> </div>
+                  </div>
+                    <div class="text-center  col-md-4 mx-auto" style = "padding:0 0 0 0; padding-top: 10px;">
+                      <img class="abouticons" src="img/003-seatbelt.png">
+                      <div class = "shout-wrap" style = "background-color: rgba(25, 25, 25, .5); width: 100%; height: 200px; padding-left: 25px; padding-right: 25px;">
+                       <h2 style="padding-top: 1em; color:white;">Safer</h2>
+                       
+                        <p style = "color:white; font-size: 20px;">Both drivers and riders receive ratings, which helps everyone travel with a greater peace of mind.</p></div>
+                      </div>
+                    <div class=" text-center col-md-4 mx-auto" style = "padding:0 0 0 0; padding-top: 10px;">
+                      <img class="abouticons" src="img/001-earth-day.png">
+                      <div class = "shout-wrap" style = "background-color: rgba(25, 25, 25, .5); width: 100%; height: 200px; padding-left: 25px; padding-right: 25px;">
+                    <h2 style="padding-top: 1em; color:white; ">Eco-Friendly</h2>
+                    
+                    <p style = "color:white; font-size: 20px;">Carpooling means saving money, making new karaoke friends, and driving toward a cleaner planet.</p>
+                  </div>
+                </div>
+            </div>
+          </div>
 
 <!--Rideshare Logo
 <div class = "text-center">
