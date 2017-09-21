@@ -28,26 +28,40 @@
         $cap = trim($_POST['ridecapacity']);
       }
 
+      if(empty($_POST['origin'])){
+        $data_missing[] = 'Origin';
+      } else {
+        $org = trim($_POST['origin']);
+      }
+
+      if(empty($_POST['userid'])){
+        $data_missing[] = 'User ID';
+      } else {
+        $userid = trim($_POST['userid']);
+        $userid = (string)$userid;
+      }
+
       if(empty($data_missing)){
-        echo 'no data missing';
+        echo 'No Data Missing';
         require_once('mysqli_connect.php');
 
-        $query = "INSERT INTO rides(destination, price, capacity) VALUES(?,?,?)";
+        $query = "INSERT INTO rides(destination, price, capacity,origin,userid) VALUES(?,?,?,?,?)";
         $stmt = mysqli_prepare($dbc,$query);
 
-        mysqli_stmt_bind_param($stmt, "sid", $dest, $price, $cap);
+        mysqli_stmt_bind_param($stmt, "sdiss", $dest, $price, $cap,$org,$userid);
 
         mysqli_stmt_execute($stmt);
 
         $affected_rows = mysqli_stmt_affected_rows($stmt);
 
         if($affected_rows == 1){
-          echo 'ride entered';
+          echo "Ride Entered - ID: ".$userid."<br />";
 
           mysqli_stmt_close($stmt);
           mysqli_close($dbc);
         } else {
-          echo 'error <br />';
+          echo "Affected Rows: ".$affected_rows."</br>";
+          echo 'Error Found: <br />';
           echo mysqli_error();
 
           mysqli_stmt_close($stmt);
@@ -63,31 +77,11 @@
     }
 ?>
 
-<form action="rideadded.php" method="post">
-
-<table border="0">
-
-<title>Create a ride</title>
-<div>
-  <h1>Let's set-up your ride</h1>
-  <tr>
-    <td>Destination</td>
-    <td align="center"><input type="text" name="ridedestination" size="30" /></td>
-  </tr>
-  <tr>
-    <td>Price</td>
-    <td align="center"><input type="text" name="rideprice" size="30" /></td>
-  </tr>
-  <tr>
-    <td>How many people can you fit?</td>
-    <td align="center"><input type="text" name="ridecapacity" size="30" /></td>
-  </tr>
-</div>
-<div>
-  <tr>
-    <td colspan ="2" align="center"><input type="submit" name ="submit" value="submit" /></td>
-  </tr>
-</div>
-</form>
+<script>
+  setTimeout(redirectProfile, 2000);
+  function redirectProfile() {
+  window.top.location = "http://test.qshare.ca/profile.html#post";
+  }
+</script>
 </body>
 </html>

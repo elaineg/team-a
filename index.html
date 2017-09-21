@@ -1,6 +1,7 @@
 <html>
 <head>
 <!--META-->
+<!-- Elaine Test Github -->
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -22,78 +23,13 @@
 <body>
 <!--FACEBOOK JAVASCRIPT SDK -->
 <script>
-  // This is called with the results from from FB.getLoginStatus().
-  function statusChangeCallback(response) {
-    console.log('statusChangeCallback');
-    console.log(response);
-    // The response object is returned with a status field that lets the
-    // app know the current login status of the person.
-    // Full docs on the response object can be found in the documentation
-    // for FB.getLoginStatus().
-    if (response.status === 'connected') {
-      window.top.location = "http://qshare.ca/profile.html";
-      // Logged into your app and Facebook.
-      //testAPI();
-    } 
-    else {
-      // The person is not logged into your app or we are unable to tell.
-      /*document.getElementById('status').innerHTML = '<h3>Please log ' +
-        'in to use Rideshare.</h3>';
-        document.getElementById("profileImage").setAttribute("src", "img/placeholder.png");
-        document.getElementById('userInfo').innerHTML = '';*/
-    }
-  }
 
-  // This function is called when someone finishes with the Login
-  // Button.  See the onlogin handler attached to it in the sample
-  // code below.
-  function checkLoginState() {
-    FB.getLoginStatus(function(response) {
-      statusChangeCallback(response);
-    });
-  }
-
-  window.fbAsyncInit = function() {
-  FB.init({
-    appId      : '1860846777499353',
-    cookie     : true,  // enable cookies to allow the server to access 
-                        // the session
-    xfbml      : true,  // parse social plugins on this page
-    version    : 'v2.8' // use graph api version 2.8
-  });
-
-  // Now that we've initialized the JavaScript SDK, we call 
-  // FB.getLoginStatus().  This function gets the state of the
-  // person visiting this page and can return one of three states to
-  // the callback you provide.  They can be:
-  //
-  // 1. Logged into your app ('connected')
-  // 2. Logged into Facebook, but not your app ('not_authorized')
-  // 3. Not logged into Facebook and can't tell if they are logged into
-  //    your app or not.
-  //
-  // These three cases are handled in the callback function.
-
-  FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-  });
-
-  };
-
-  // Load the SDK asynchronously
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/sdk.js";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
   
 </script>
 
 <!--END FACEBOOK JAVASCRIPT SDK -->
-
-<div class = "jumbotron">
+<div class = "jumbo-wrapper" style = "height: 272px;">
+<div class = "jumbotron" style = "position: fixed; z-index: 2; width: 100%;">
 	<div class = "container-fluid">
 		
   			<div class = "title-container">
@@ -108,6 +44,7 @@
         </div>
 	</div>
 </div>
+</div>
 
 <!--
   Below we include the Login Button social plugin. This button uses
@@ -115,14 +52,40 @@
   the FB.login() function when clicked.
 -->
 <section id = "main">
-<div class = "text-center">
-<div style = "margin-top: 50px;" class="fb-login-button" data-width="200" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true" onlogin="checkLoginState();" scope="public_profile,email"></div>
+<<!-- div class = "text-center">
+<div style = "margin-top: 50px;" class="fb-login-button" data-width="200" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true" onlogin="checkLoginState();" scope="public_profile,email"></div> -->
 <!-- <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
 </fb:login-button>  -->
 
 <div id="status">
 </div>
 </div>
+<div class = "container-fluid">
+<div class="row">
+                <div class="text-center col-md-4 mx-auto" style = "padding:0 0 0 0; padding-top: 10px;">
+                  <img class="abouticons" src="img/002-stopwatch.png">
+                  <div class = "shout-wrap" style = "background-color: rgba(25, 25, 25, .5); width: 100%; height: 200px; padding-left: 25px; padding-right: 25px;">
+                   <h2 style="padding-top: 1em; color:white;">Faster</h2>
+                   
+                    <p style = "color:white; font-size: 20px;">Filter rides by date and location. Riders don't have to sift through ride offers, and drivers can ensure that their posts don't get lost in cyberspace.</p> </div>
+                  </div>
+                    <div class="text-center  col-md-4 mx-auto" style = "padding:0 0 0 0; padding-top: 10px;">
+                      <img class="abouticons" src="img/003-seatbelt.png">
+                      <div class = "shout-wrap" style = "background-color: rgba(25, 25, 25, .5); width: 100%; height: 200px; padding-left: 25px; padding-right: 25px;">
+                       <h2 style="padding-top: 1em; color:white;">Safer</h2>
+                       
+                        <p style = "color:white; font-size: 20px;">Both drivers and riders receive ratings, which helps everyone travel with a greater peace of mind.</p></div>
+                      </div>
+                    <div class=" text-center col-md-4 mx-auto" style = "padding:0 0 0 0; padding-top: 10px;">
+                      <img class="abouticons" src="img/001-earth-day.png">
+                      <div class = "shout-wrap" style = "background-color: rgba(25, 25, 25, .5); width: 100%; height: 200px; padding-left: 25px; padding-right: 25px;">
+                    <h2 style="padding-top: 1em; color:white; ">Eco-Friendly</h2>
+                    
+                    <p style = "color:white; font-size: 20px;">Carpooling means saving money, making new karaoke friends, and driving toward a cleaner planet.</p>
+                  </div>
+                </div>
+            </div>
+          </div>
 
 <!--Rideshare Logo
 <div class = "text-center">
