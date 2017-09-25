@@ -228,24 +228,23 @@ body{
 	background-color: linen;
 	padding-top: 30px;
 	padding-bottom: 30px;
+	overflow: hidden;
 }
 #post{
-	margin-top: -20px;
-	margin-bottom: -20px;
-	
 	background-color: lightcoral;
-}
-
-#request{
-	background-color: linen;
-	height: 300px;
-
+	    margin-top: -20;
 }
 #rides{
-	margin-top: -20px;
-	height: 300px;
-	background-color: lightcoral;
+	margin-bottom: -20px;
+	overflow: hidden;
+	background-color: linen;
 }
+#request{
+	background-color: lightcoral;
+	height: 300px;
+
+}
+
 #contact{
 	background-color: linen;
 	margin-bottom: 0px;

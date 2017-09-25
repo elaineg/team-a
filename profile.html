@@ -18,16 +18,21 @@
       href="img/logo_green.png">
 <!--Google Fonts-->
 <link href="https://fonts.googleapis.com/css?family=Open+Sans|Orbitron|Slabo+27px" rel="stylesheet">
+<!-- Include jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <style>
 body{
 	background-image: none;
 	background-color: powderblue;
 }
 </style>
+
 </head>
 <body>
 <!--FACEBOOK JAVASCRIPT SDK -->
 <script>
+  //Global FB info array!
+  fbinfo = new Array();
   // This is called with the results from from FB.getLoginStatus().
   function statusChangeCallback(response) {
     console.log('statusChangeCallback');
@@ -105,7 +110,7 @@ body{
 
   function getFBData () {
   FB.api('/me',{fields: 'name,email'}, function(response) {
-  fbinfo = new Array();
+  
   fbinfo[0] = response.id;
   fbinfo[1] = response.first_name;
   fbinfo[2] = response.last_name;
@@ -114,11 +119,11 @@ body{
      var im = document.getElementById("profileImage").setAttribute("src", "http://graph.facebook.com/" + response.id + "/picture?type=large");
      document.getElementById('userInfo').innerHTML =
         '<h4>User ID: ' + response.id + '<br>'+'User Email: ' +response.email+'</h4>';
-     document.getElementById("userid").value = response.id;   
+     document.getElementById("userid").value = response.id; 
+     displayUserRides(response.id);  
   });
   }
 </script>
-
 <!--END FACEBOOK JAVASCRIPT SDK -->
 <div class = "jumbotron" id = "jumbo">
 	<div class = "container-fluid">
@@ -187,6 +192,9 @@ body{
   </div>
   <div id="userInfo" class = "text-center">
   </div>
+  <h2 class = "text-center" id = "userRideTitle">Your Rides</h2>
+  <div id = "userRideTable">
+  </div>
 </section>
 
 <section id = "post">
@@ -212,8 +220,8 @@ body{
     </div>
     <div class = "col-xs-12 col-sm-6">
       <div class="form-group">
-         <label for="ridedestination">Destination</label>
-         <input type="text" class="form-control" name = "ridedestination" id="ridedestination" placeholder="Where are you heading?">
+         <label for="origin">Origin</label>
+         <input type="text" class="form-control" name = "origin" id="origin" placeholder="Where are you leaving from?">
       </div>
     </div>
     <div class = "col-xs-12 col-sm-6">
@@ -226,10 +234,11 @@ body{
     </div>
     <div class = "col-xs-12 col-sm-6">
       <div class="form-group">
-         <label for="origin">Origin</label>
-         <input type="text" class="form-control" name = "origin" id="origin" placeholder="Where are you leaving from?">
+         <label for="ridedestination">Destination</label>
+         <input type="text" class="form-control" name = "ridedestination" id="ridedestination" placeholder="Where are you heading?">
       </div>
     </div>
+    
     <input type="hidden" id = "userid" name = "userid"/>
 
     </div><!--End Row-->
@@ -254,7 +263,25 @@ body{
      </form>
      </div><!--End Container Fluid-->
 </section>
+<section id = "rides">
+     <h2 style = "padding-top: 20px;" class = "text-center">Ride Listings!</h2>
+     <!-- <div class = "desc">
+     <h4 style = "line-height: 60px;" class = "text-center"> In Development - Coming Soon!</h4>
+     </div> -->
 
+     <!-- Ride Table -->
+     <form>
+      <div class="form-group">
+        <label for="usr">User ID:</label>
+        <input type="text" class="form-control" id="user_id">
+        </div>
+      <button type="button" name = "submit" class="btn btn-primary" onclick = "populateTable();" style = "display: block; position:relative; margin: auto; left:0; right:0; margin-top: 20px; margin-bottom: 20px;">View Rides!</button>
+    </form>
+
+    <div id = "tableDiv">
+    </div>
+     <!-- End Ride Table -->
+</section>
 <section id = "request">
      <h2 style = "padding-top: 20px;" class = "text-center">Request a Ride!</h2>
      <div class = "desc">
@@ -262,12 +289,7 @@ body{
      </div>
 </section>
 
-<section id = "rides">
-     <h2 style = "padding-top: 20px;" class = "text-center">Ride Listings!</h2>
-     <div class = "desc">
-     <h4 style = "line-height: 60px;" class = "text-center"> In Development - Coming Soon!</h4>
-     </div>
-</section>
+
 
 <!--Footer / Contact Us!-->
 <div class = "container-fluid" id="contact">
@@ -287,8 +309,40 @@ body{
 </div> 
 
 
+<!--Ride Table Script-->
+<script>
+//$( document ).ready(function() {
+  function displayUserRides(userID){
+  console.log("Ride table displayed for: "+ userID);
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        //if(this.responseText != ""){
+         document.getElementById("userRideTable").innerHTML = this.responseText;
+       // } else{
+         // document.getElementById("userRideTitle").innerHTML = "No Rides Found";
+        //}
+      }
+  };
+  xmlhttp.open("GET","filterRide.php?q="+userID,true);
+  xmlhttp.send();
+}
+//});
 
+function populateTable(){
+        console.log("inside populateTable");
+        var id = document.getElementById('user_id').value;
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+               document.getElementById("tableDiv").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET","filterRide.php?q="+id,true);
+        xmlhttp.send();
+    }
 
+</script>
 <!-- jQuery -->
 <script src="resources/js/jquery.min.js"></script>
 <!-- Bootstrap Core JavaScript -->

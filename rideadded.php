@@ -78,7 +78,7 @@
 ?>
 
 <script>
-  setTimeout(redirectProfile, 2000);
+  setTimeout(redirectProfile, 500);
   function redirectProfile() {
   window.top.location = "http://test.qshare.ca/profile.html#post";
   }
