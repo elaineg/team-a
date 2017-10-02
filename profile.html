@@ -18,8 +18,11 @@
       href="img/logo_green.png">
 <!--Google Fonts-->
 <link href="https://fonts.googleapis.com/css?family=Open+Sans|Orbitron|Slabo+27px" rel="stylesheet">
+<!-- Angular Material Stylesheet -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.0-rc2/angular-material.min.css">
 <!-- Include jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 <style>
 body{
 	background-image: none;
@@ -120,7 +123,6 @@ body{
      document.getElementById('userInfo').innerHTML =
         '<h4>User ID: ' + response.id + '<br>'+'User Email: ' +response.email+'</h4>';
      document.getElementById("userid").value = response.id; 
-     displayUserRides(response.id);  
   });
   }
 </script>
@@ -191,9 +193,6 @@ body{
     <img id = "profileImage" src = "img/placeholder.png">
   </div>
   <div id="userInfo" class = "text-center">
-  </div>
-  <h2 class = "text-center" id = "userRideTitle">Your Rides</h2>
-  <div id = "userRideTable">
   </div>
 </section>
 
@@ -270,16 +269,34 @@ body{
      </div> -->
 
      <!-- Ride Table -->
-     <form>
-      <div class="form-group">
-        <label for="usr">User ID:</label>
-        <input type="text" class="form-control" id="user_id">
-        </div>
-      <button type="button" name = "submit" class="btn btn-primary" onclick = "populateTable();" style = "display: block; position:relative; margin: auto; left:0; right:0; margin-top: 20px; margin-bottom: 20px;">View Rides!</button>
-    </form>
-
-    <div id = "tableDiv">
-    </div>
+     <div id = 'RideTable' ng-app = "rideApp" ng-controller= "rideCtrl">
+    
+           <md-list flex="">
+            <md-divider></md-divider>
+            <md-list-item class="md-3-line" ng-repeat="x in names | startFrom:currentPage*pageSize | limitTo:pageSize" ng-click="null" style = "height: 100px;">
+              <img class="md-avatar" ng-src = "{{x.ProfilePicture}}">
+              <div class="md-list-item-text">
+                <span>{{ x.ID }}</span> 
+                <p>{{ x.Date }}</p>
+              </div>
+              <div class="md-list-item-text md-secondary" layout="row">
+                <p>From: {{ x.Origin }}</p>
+                <p>To: {{ x.Destination }}</p>
+              </div>
+              <md-divider></md-divider>
+            </md-list-item>
+          <!--Pagination-->
+          <section layout="row" layout-sm="column" layout-align="center center" layout-wrap=""> 
+            <md-button md-no-ink="" class="md-primary" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">Previous</md-button>
+            </md-button>
+            {{currentPage+1}}/{{numberOfPages()}}
+            <md-button d-no-ink="" class="md-primary" ng-disabled="currentPage >= names.length/pageSize - 1" ng-click="currentPage=currentPage+1">
+                Next
+            </md-button>
+          </section>
+          </md-list>
+     
+     </div>
      <!-- End Ride Table -->
 </section>
 <section id = "request">
@@ -308,41 +325,47 @@ body{
     
 </div> 
 
+<!-- Angular Material requires Angular.js Libraries -->
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
+<!-- Angular Material Library -->
+<script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
 
 <!--Ride Table Script-->
 <script>
-//$( document ).ready(function() {
-  function displayUserRides(userID){
-  console.log("Ride table displayed for: "+ userID);
-  var xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        //if(this.responseText != ""){
-         document.getElementById("userRideTable").innerHTML = this.responseText;
-       // } else{
-         // document.getElementById("userRideTitle").innerHTML = "No Rides Found";
-        //}
-      }
-  };
-  xmlhttp.open("GET","filterRide.php?q="+userID,true);
-  xmlhttp.send();
-}
-//});
+  var app = angular.module('rideApp', ['ngMaterial']);
 
-function populateTable(){
-        console.log("inside populateTable");
-        var id = document.getElementById('user_id').value;
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-               document.getElementById("tableDiv").innerHTML = this.responseText;
-            }
-        };
-        xmlhttp.open("GET","filterRide.php?q="+id,true);
-        xmlhttp.send();
+  app.controller('rideCtrl', ['$scope', '$http',function($scope,$http){
+    $http.get("angularFilter.php")
+    .then(
+      function (response) {
+        $scope.names = response.data.records;
+        $scope.currentPage = 0;
+        $scope.pageSize = 5;
+        $scope.numberOfPages= function(){
+        return Math.ceil(response.data.records.length/$scope.pageSize);                
     }
+        console.log(response);
+      },
+      function(data){
+        console.log("Error!" + data);
+      }
 
+        );
+}]);
+
+  //We already have a limitTo filter built-in to angular,
+//let's make a startFrom filter
+app.filter('startFrom', function() {
+    return function(input, start) {
+        start = + start; //parse to int
+        return input.slice(start);
+    }
+});
 </script>
+
 <!-- jQuery -->
 <script src="resources/js/jquery.min.js"></script>
 <!-- Bootstrap Core JavaScript -->
