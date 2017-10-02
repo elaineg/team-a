@@ -4,7 +4,7 @@ header("Content-Type: application/json; charset=UTF-8");
 
 require_once('mysqli_connect.php');
 
-$query = "SELECT rideid, destination, price, capacity, userid, origin, departDate, vehicle FROM rides";
+$query = "SELECT rideid, destination, price, capacity, userid, origin, departDate, vehicle, name FROM rides";
 
 $result = @mysqli_query($dbc, $query);
 $myArray = array();
@@ -13,10 +13,11 @@ if($result){
 	while($rs = mysqli_fetch_array($result)) {
 		$myArray[] = array(
 			'Origin' => $rs["origin"],
-			'Destination' => $rs["origin"],
+			'Destination' => $rs["destination"],
 			'Price' => $rs["price"],
 			'Capacity' => $rs["capacity"],
 			'ID' => $rs["userid"],
+			'Name' => $rs["name"],
 			'Date' => $rs["departDate"],
 			'ProfilePicture' => 'http://graph.facebook.com/'. $rs["userid"] . '/picture?type=small'
 		);

@@ -107,6 +107,7 @@ body{
       console.log('Successful login for: ' + response.name);
       document.getElementById('status').innerHTML =
         '<h3>Hi ' + response.name + '!</h3>';
+      document.getElementById("userName").value = response.name;
         getFBData();
     });
   }
@@ -123,6 +124,7 @@ body{
      document.getElementById('userInfo').innerHTML =
         '<h4>User ID: ' + response.id + '<br>'+'User Email: ' +response.email+'</h4>';
      document.getElementById("userid").value = response.id; 
+   
   });
   }
 </script>
@@ -238,7 +240,8 @@ body{
       </div>
     </div>
     
-    <input type="hidden" id = "userid" name = "userid"/>
+    <input type="hidden" id = "userid" name = "userid">
+    <input type = "hidden" id = "userName" name = "userName">
 
     </div><!--End Row-->
     
@@ -276,7 +279,7 @@ body{
             <md-list-item class="md-3-line" ng-repeat="x in names | startFrom:currentPage*pageSize | limitTo:pageSize" ng-click="null" style = "height: 100px;">
               <img class="md-avatar" ng-src = "{{x.ProfilePicture}}">
               <div class="md-list-item-text">
-                <span>{{ x.ID }}</span> 
+                <span>{{ x.Name }}</span> 
                 <p>{{ x.Date }}</p>
               </div>
               <div class="md-list-item-text md-secondary" layout="row">

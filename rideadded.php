@@ -40,15 +40,20 @@
         $userid = trim($_POST['userid']);
         $userid = (string)$userid;
       }
+        if(empty($_POST['userName'])){
+        $data_missing[] = 'User Name';
+      } else {
+        $username = trim($_POST['userName']);
+      }
 
       if(empty($data_missing)){
         echo 'No Data Missing';
         require_once('mysqli_connect.php');
 
-        $query = "INSERT INTO rides(destination, price, capacity,origin,userid) VALUES(?,?,?,?,?)";
+        $query = "INSERT INTO rides(destination, price, capacity,origin,userid,name) VALUES(?,?,?,?,?,?)";
         $stmt = mysqli_prepare($dbc,$query);
 
-        mysqli_stmt_bind_param($stmt, "sdiss", $dest, $price, $cap,$org,$userid);
+        mysqli_stmt_bind_param($stmt, "sdisss", $dest, $price, $cap,$org,$userid,$username);
 
         mysqli_stmt_execute($stmt);
 
@@ -78,7 +83,7 @@
 ?>
 
 <script>
-  setTimeout(redirectProfile, 500);
+  setTimeout(redirectProfile, 1500);
   function redirectProfile() {
   window.top.location = "http://test.qshare.ca/profile.html#post";
   }
