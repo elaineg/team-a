@@ -5,3 +5,6 @@ Project tasks and code for QTMA Qshare developers
 Cory Crowley,
 Elaine Gao,
 Evgeny Bogdanov
+
+## Live Testing Site
+http://test.qshare.ca
