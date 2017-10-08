@@ -9,6 +9,8 @@
 <!--Links-->
 <!-- Bootstrap Core CSS -->
 <link href="resources/css/bootstrap.min.css" rel="stylesheet">
+<!-- DateTime Core CSS -->
+<link href= "resources/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 <!--Font Awesome css-->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <!--Custom CSS link -->
@@ -20,8 +22,16 @@
 <link href="https://fonts.googleapis.com/css?family=Open+Sans|Orbitron|Slabo+27px" rel="stylesheet">
 <!-- Angular Material Stylesheet -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.0-rc2/angular-material.min.css">
+<!-- Moment JS javscript datetime library -->
+<script type="text/javascript" src="resources/js/moment.js"></script>
 <!-- Include jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- jQuery 
+<script src="resources/js/jquery.min.js"></script>-->
+<!-- Bootstrap Core JavaScript -->
+<script src="resources/js/bootstrap.min.js"></script>
+<!-- Bootstrap DateTime -->
+<script type="text/javascript" src="resources/js/bootstrap-datetimepicker.min.js"></script>
 
 <style>
 body{
@@ -239,6 +249,21 @@ body{
          <input type="text" class="form-control" name = "ridedestination" id="ridedestination" placeholder="Where are you heading?">
       </div>
     </div>
+    <!-- Date and Time Input -->
+   
+      <div class='col-sm-6'>
+            <div class="form-group">
+               <label for "datetime">Departure Date</label>
+                <div class='input-group date' id='datetimepicker1'>
+
+                    <input type='text' class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+      </div>
+  
     
     <input type="hidden" id = "userid" name = "userid">
     <input type = "hidden" id = "userName" name = "userName">
@@ -327,20 +352,41 @@ body{
       </div>
     
 </div> 
-
+<!-- Date and time picker script -->
+<script type="text/javascript">
+  $.noConflict();
+  $(document).ready({
+        $(function () {
+            $('#datetimepicker1').datepicker();
+        });
+  });
+</script>
 <!-- Angular Material requires Angular.js Libraries -->
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/angular-messages/1.6.6/angular-messages.js"></script>
 <!-- Angular Material Library -->
 <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
 
 <!--Ride Table Script-->
 <script>
-  var app = angular.module('rideApp', ['ngMaterial']);
+  var app = angular.module('rideApp', ['ngMaterial', 'ngMessages']);
 
   app.controller('rideCtrl', ['$scope', '$http',function($scope,$http){
+
+    //set up calendar
+     this.currentDate = new Date();
+
+    this.currentDate = new Date(
+      this.currentDate.getFullYear(),
+      this.currentDate.getMonth(),
+      this.currentDate.getDate()
+    );
+
+
+
     $http.get("angularFilter.php")
     .then(
       function (response) {
@@ -369,10 +415,8 @@ app.filter('startFrom', function() {
 });
 </script>
 
-<!-- jQuery -->
-<script src="resources/js/jquery.min.js"></script>
-<!-- Bootstrap Core JavaScript -->
-<script src="resources/js/bootstrap.min.js"></script>
+
+
 <!-- Custom JS -->
 <script src = "resources/js/custom.js"></script>
 </body>
