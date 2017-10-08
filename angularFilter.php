@@ -11,6 +11,9 @@ $myArray = array();
 if($result){
 
 	while($rs = mysqli_fetch_array($result)) {
+		$time = strtotime($rs["departDate"]);
+		$timeForView = date("m/d/y g:i A", $time);
+		
 		$myArray[] = array(
 			'Origin' => $rs["origin"],
 			'Destination' => $rs["destination"],
@@ -18,7 +21,7 @@ if($result){
 			'Capacity' => $rs["capacity"],
 			'ID' => $rs["userid"],
 			'Name' => $rs["name"],
-			'Date' => $rs["departDate"],
+			'Date' => $timeForView,
 			'ProfilePicture' => 'http://graph.facebook.com/'. $rs["userid"] . '/picture?type=small'
 		);
 	}

@@ -45,15 +45,21 @@
       } else {
         $username = trim($_POST['userName']);
       }
+      if(empty($_POST['dtp_input'])){
+        $data_missing[] = 'Date Time Input';
+      } else {
+        $datetime = trim($_POST['dtp_input']);
+        $datetime = (string) $datetime;
+      }
 
       if(empty($data_missing)){
         echo 'No Data Missing';
         require_once('mysqli_connect.php');
 
-        $query = "INSERT INTO rides(destination, price, capacity,origin,userid,name) VALUES(?,?,?,?,?,?)";
+        $query = "INSERT INTO rides(destination, price, capacity,origin,departDate,userid,name) VALUES(?,?,?,?,?,?,?)";
         $stmt = mysqli_prepare($dbc,$query);
 
-        mysqli_stmt_bind_param($stmt, "sdisss", $dest, $price, $cap,$org,$userid,$username);
+        mysqli_stmt_bind_param($stmt, "sdissss", $dest, $price, $cap,$org,$datetime,$userid,$username);
 
         mysqli_stmt_execute($stmt);
 

@@ -10,7 +10,7 @@
 <!-- Bootstrap Core CSS -->
 <link href="resources/css/bootstrap.min.css" rel="stylesheet">
 <!-- DateTime Core CSS -->
-<link href= "resources/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+<link href= "resources/css/bootstrap-datetimepicker.css" rel="stylesheet">
 <!--Font Awesome css-->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <!--Custom CSS link -->
@@ -22,16 +22,16 @@
 <link href="https://fonts.googleapis.com/css?family=Open+Sans|Orbitron|Slabo+27px" rel="stylesheet">
 <!-- Angular Material Stylesheet -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.0-rc2/angular-material.min.css">
+<!-- Include jQuery 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+<!-- jQuery -->
+<script src="resources/js/jquery-3.2.1.js"></script>
 <!-- Moment JS javscript datetime library -->
 <script type="text/javascript" src="resources/js/moment.js"></script>
-<!-- Include jQuery -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!-- jQuery 
-<script src="resources/js/jquery.min.js"></script>-->
 <!-- Bootstrap Core JavaScript -->
 <script src="resources/js/bootstrap.min.js"></script>
 <!-- Bootstrap DateTime -->
-<script type="text/javascript" src="resources/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="resources/js/bootstrap-datetimepicker.js"></script>
 
 <style>
 body{
@@ -250,19 +250,17 @@ body{
       </div>
     </div>
     <!-- Date and Time Input -->
-   
-      <div class='col-sm-6'>
-            <div class="form-group">
-               <label for "datetime">Departure Date</label>
-                <div class='input-group date' id='datetimepicker1'>
-
-                    <input type='text' class="form-control" />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
+    <div class = "col-xs-12 col-sm-6">
+      <div class="form-group">
+        <label for="dtp_input">Departure Date</label>
+      <div class="input-group date form_datetime" data-date-format="yyyy MM dd   - HH:ii p" data-link-field="dtp_input">
+            <input class="form-control" size="16" type="text" value="" readonly style = "background-color: white;">
+            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+          <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                 </div>
-            </div>
+        <input type="hidden" id="dtp_input" name = "dtp_input" value="" /><br/>
       </div>
+    </div>
   
     
     <input type="hidden" id = "userid" name = "userid">
@@ -304,12 +302,14 @@ body{
             <md-list-item class="md-3-line" ng-repeat="x in names | startFrom:currentPage*pageSize | limitTo:pageSize" ng-click="null" style = "height: 100px;">
               <img class="md-avatar" ng-src = "{{x.ProfilePicture}}">
               <div class="md-list-item-text">
-                <span>{{ x.Name }}</span> 
-                <p>{{ x.Date }}</p>
+                <span><h3>{{ x.Name }}</h3></span> 
+                <p><b>{{ x.Date }}</b></p>
+                <p><b>Price: ${{x.Price}}</b></p>
+                <p><b>Capacity: {{x.Capacity}}</b></p>
               </div>
               <div class="md-list-item-text md-secondary" layout="row">
-                <p>From: {{ x.Origin }}</p>
-                <p>To: {{ x.Destination }}</p>
+                <p>From: <b> {{ x.Origin }} </b></p>
+                <p>To: <b>{{ x.Destination }}</b></p>
               </div>
               <md-divider></md-divider>
             </md-list-item>
@@ -354,41 +354,31 @@ body{
 </div> 
 <!-- Date and time picker script -->
 <script type="text/javascript">
-  $.noConflict();
-  $(document).ready({
-        $(function () {
-            $('#datetimepicker1').datepicker();
-        });
-  });
+  $('.form_datetime').datetimepicker({
+        //language:  'fr',
+        weekStart: 1,
+        todayBtn:  1,
+    autoclose: 1,
+    todayHighlight: 1,
+    startView: 2,
+    forceParse: 0,
+        showMeridian: 1
+    });
 </script>
 <!-- Angular Material requires Angular.js Libraries -->
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
-<script src = "https://cdnjs.cloudflare.com/ajax/libs/angular-messages/1.6.6/angular-messages.js"></script>
 <!-- Angular Material Library -->
 <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
 
 <!--Ride Table Script-->
 <script>
-  var app = angular.module('rideApp', ['ngMaterial', 'ngMessages']);
+  var app = angular.module('rideApp', ['ngMaterial']);
 
   app.controller('rideCtrl', ['$scope', '$http',function($scope,$http){
 
-    //set up calendar
-     this.currentDate = new Date();
-
-    this.currentDate = new Date(
-      this.currentDate.getFullYear(),
-      this.currentDate.getMonth(),
-      this.currentDate.getDate()
-    );
-
-
-
-    $http.get("angularFilter.php")
-    .then(
+  $http.get("angularFilter.php").then(
       function (response) {
         $scope.names = response.data.records;
         $scope.currentPage = 0;

@@ -1,0 +1,55 @@
+<html>
+<head>
+<!--META-->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Queen's Rideshare</title>
+
+<!--Links-->
+<!-- Bootstrap Core CSS -->
+<link href="resources/css/bootstrap.min.css" rel="stylesheet">
+<!-- DateTime Core CSS -->
+<link href= "resources/css/bootstrap-datetimepicker.css" rel="stylesheet">
+<!-- jQuery -->
+<script type="text/javascript" src="resources/js/jquery-3.2.1.js"></script>
+<!-- Moment JS javscript datetime library -->
+<script type="text/javascript" src="resources/js/moment.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="resources/js/bootstrap.min.js"></script>
+<!-- Bootstrap DateTime -->
+<script type="text/javascript" src="resources/js/bootstrap-datetimepicker.min.js"></script>
+
+</head>
+
+<body>
+	<!-- Date and Time Input -->
+      <div class='col-sm-6'>
+            <div class="form-group">
+               <label for "datetime">Departure Date</label>
+                <div class='input-group date' id='datetimepicker1'>
+
+                    <input type='text' class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+      </div>
+
+<!-- Date and time picker script -->
+<script type="text/javascript">
+  //$.noConflict();
+  $(document).ready(function(){
+  			console.log("---------- here ---------")
+            $('#datetimepicker1').datetimepicker();
+  });
+</script>
+
+</body>
+</html>
+
+
+
+
