@@ -38,6 +38,9 @@ body{
 	background-image: none;
 	background-color: powderblue;
 }
+.filters {
+  display: inline-block;
+}
 </style>
 
 </head>
@@ -297,9 +300,19 @@ body{
      <!-- Ride Table -->
      <div id = 'RideTable' ng-app = "rideApp" ng-controller= "rideCtrl">
     
+      <!-- From / To Filter below -->
+      <div class = "container">
+        
+            <h4><u>Filter Location</u></h4>
+
+            <p class="filters">From:&nbsp;</p><select ng-change="changeOrigin(select1)" ng-model="select1" ng-options="city for city in originSelect"><option value="">All</option></select>
+
+            <p style = "margin-left: 15px;" class="filters">To:&nbsp;</p><select ng-change="changeDestination(select2)" ng-model="select2" ng-options="city for city in destinationSelect"><option value="">All</option></select>
+      </div><!-- End Container -->
+      <!-- End From / To Filter -->
            <md-list flex="">
             <md-divider></md-divider>
-            <md-list-item class="md-3-line" ng-repeat="x in names | startFrom:currentPage*pageSize | limitTo:pageSize" ng-click="null" style = "height: 100px;">
+            <md-list-item class="md-3-line" ng-repeat="x in names | oFilter | dFilter | startFrom:currentPage*pageSize | limitTo:pageSize" ng-click="null" style = "height: 100px;">
               <img class="md-avatar" ng-src = "{{x.ProfilePicture}}">
               <div class="md-list-item-text">
                 <span><h3>{{ x.Name }}</h3></span> 
@@ -355,14 +368,14 @@ body{
 <!-- Date and time picker script -->
 <script type="text/javascript">
   $('.form_datetime').datetimepicker({
-        //language:  'fr',
-        weekStart: 1,
-        todayBtn:  1,
+    weekStart: 1,
+    todayBtn:  1,
     autoclose: 1,
     todayHighlight: 1,
     startView: 2,
     forceParse: 0,
-        showMeridian: 1
+    showMeridian: 1,
+    startDate: new Date()
     });
 </script>
 <!-- Angular Material requires Angular.js Libraries -->
@@ -381,6 +394,46 @@ body{
   $http.get("angularFilter.php").then(
       function (response) {
         $scope.names = response.data.records;
+
+        
+        //Get array of all Origin strings 
+        originArray = [];
+        uniqueOrigins = [];
+        for (i = 0; i < response.data.records.length; i++){
+        originArray[i] = response.data.records[i]["Origin"];
+        }
+        //Remove duplicates
+        $.each(originArray, function(i, el){
+        if($.inArray(el, uniqueOrigins) === -1) uniqueOrigins.push(el);
+        });
+        $scope.originSelect = uniqueOrigins;
+        
+        //Repeat process for Destinations
+        destinationArray = [];
+        uniqueDestination = [];
+        for (i = 0; i < response.data.records.length; i++){
+        destinationArray[i] = response.data.records[i]["Destination"];
+        }
+        //Remove duplicates
+        $.each(destinationArray, function(i, el){
+        if($.inArray(el, uniqueDestination) === -1) uniqueDestination.push(el);
+        });
+        $scope.destinationSelect = uniqueDestination;
+
+        console.log("Origins: \n" + $scope.originSelect);
+        console.log("Destination: \n" + $scope.destinationSelect);
+
+        //-------------------- More Filter Stuff ----------------------
+        //changeOrigin is the function that executes when the drop-down menu option is changed
+        $scope.changeOrigin = function(city){ 
+          originFilter = city;
+        }
+        //same as above but for changes in destination drop-down menu option
+        $scope.changeDestination = function(city){
+          destinationFilter = city;
+        }  
+
+        //Pagination Stuff
         $scope.currentPage = 0;
         $scope.pageSize = 5;
         $scope.numberOfPages= function(){
@@ -393,12 +446,51 @@ body{
       }
 
         );
-}]);
+
+
+}]);//end scope
+
+//these variables contain what we are filtering for --> if "All" is selected, originFilter and destinationFilter will be null; else it will contain the name of the city we are looking for
+var originFilter = null;
+var destinationFilter = null;
+
+//the following is a custom filter for origin city
+//note: this needs to be outside the controller!
+angular.module('rideApp').filter('oFilter', function() {
+    return function(rides) {
+      if(!rides) return;
+      //filtered will contain the acceptable list of rides at the end of filtering
+      var filtered = [];
+      //loop through and add ride to filtered if originFilter is null or the Origin of the ride matches the originFilter
+      for(var i = 0; i < rides.length; i++){
+        if (originFilter === null || rides[i].Origin === originFilter) {
+          filtered.push(rides[i]);
+        }
+      }
+      return filtered;
+    };
+});
+
+// same as above but for destination
+angular.module('rideApp').filter('dFilter', function() {
+  
+    return function(rides) {
+      if(!rides) return;
+      var filtered = [];
+      for(var i = 0; i < rides.length; i++){
+        if (destinationFilter === null || rides[i].Destination === destinationFilter) {
+          filtered.push(rides[i]);
+        }
+      }
+      return filtered;
+    };
+});
 
   //We already have a limitTo filter built-in to angular,
 //let's make a startFrom filter
 app.filter('startFrom', function() {
     return function(input, start) {
+        if (!input || !input.length) { return; }
         start = + start; //parse to int
         return input.slice(start);
     }

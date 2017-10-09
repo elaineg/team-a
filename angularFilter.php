@@ -12,7 +12,7 @@ if($result){
 
 	while($rs = mysqli_fetch_array($result)) {
 		$time = strtotime($rs["departDate"]);
-		$timeForView = date("m/d/y g:i A", $time);
+		$timeForView = date("D F jS, g:i A", $time);
 		
 		$myArray[] = array(
 			'Origin' => $rs["origin"],
@@ -22,6 +22,7 @@ if($result){
 			'ID' => $rs["userid"],
 			'Name' => $rs["name"],
 			'Date' => $timeForView,
+			'FilterDate' => $rs["departDate"],
 			'ProfilePicture' => 'http://graph.facebook.com/'. $rs["userid"] . '/picture?type=small'
 		);
 	}
