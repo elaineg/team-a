@@ -12,6 +12,7 @@ if($result){
 
 	while($rs = mysqli_fetch_array($result)) {
 		$time = strtotime($rs["departDate"]);
+		//Move to js front end for -user friendly date
 		$timeForView = date("D F jS, g:i A", $time);
 		
 		$myArray[] = array(
